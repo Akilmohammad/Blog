@@ -1,0 +1,22 @@
+{% extends 'blog_app/base.html' %}
+{% block page_header %}
+
+<div class="jumbotron">
+    <h1 class="display-3">Make Your Blog</h1>
+</div>
+
+{% endblock page_header %}
+
+{% block content %}
+<h2>All Topics</h2>
+<hr>
+{% for i in topic %}
+<ul>
+    <li>
+        <a href="{% url 'blog_app:topics' %}">
+            <h4>{{i}}</h4>
+        </a>
+    </li>
+</ul>
+{% endfor %}
+{% endblock %}

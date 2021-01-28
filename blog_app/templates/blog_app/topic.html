@@ -1,0 +1,39 @@
+{% extends 'blog_app/base.html' %}
+
+
+{% block page_header %}
+<h3>{{ topic }}</h3>
+{% endblock page_header %}
+
+
+{% block content %}
+<p>
+    <a href="{% url 'blog_app:new_entry' topic.id %}">Add New Entry</a>
+</p>
+
+<ul>
+    {% for entry in entries %}
+    <div class="card mb-3"></div>
+    <a href="{% url 'blog_app:comment_entry' entry.id %}" style=" color: purple;">
+        <h4>{{ entry.date_added|date:'M d, Y H:i' }} -View Detail</h4>
+    </a>
+    &nbsp;
+    <h4>
+        <small><a href="{% url 'blog_app:edit_entry' entry.id %}" style=" color: Green;">Edit Entry</a></small> |
+        <small><a href="{% url 'blog_app:delete_entry' entry.id %}" style=" color: red;">Delete Entry</a></small>
+    </h4>
+
+    <div class="card-body">
+        <h6>
+            {{entry.text|linebreaks}}
+        </h6>
+
+        <small><a href="{% url 'blog_app:comment_entry' entry.id %}">Comment</a></small>
+    </div>
+
+    {% empty %}
+    <p>>There are no entries for this topic yet.</p>
+    {% endfor %}
+</ul>
+
+{% endblock content %}

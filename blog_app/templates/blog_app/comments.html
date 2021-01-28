@@ -1,0 +1,33 @@
+{% extends "blog_app/base.html" %}
+{% block content %}
+<div class="col-md-8 offset-md-2">
+    <a href="{% url 'blog_app:topics' %}">
+        <h1>{{ post.topic }}</h1>
+    </a>
+    <small>
+        {{ post.date_added.date }}
+    </small>
+    <p>{{ post.text | linebreaks }}</p>
+    <h3>Leave a comment:</h3>
+    <form action="/comment_entry/{{ post.pk }}/" method="post">
+        {% csrf_token %}
+        <div class="form-group">
+            {{ form.author }}
+        </div>
+        <div class="form-group">
+            {{ form.body }}
+        </div>
+        <button type="submit" class="btn btn-primary">Submit</button>
+
+
+        <h3>Comments:</h3>
+        {% for comment in comments %}
+        <p>
+            On {{comment.created_on.date }}&nbsp;
+            <b>{{ comment.author }}</b> wrote:
+        </p>
+        <p>{{ comment.body }}</p>
+        <hr>
+        {% endfor %}
+</div>
+{% endblock %}
